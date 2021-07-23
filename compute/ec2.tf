@@ -56,7 +56,7 @@ resource "aws_instance" "tf_server" {
     
     connection {
     type     = "ssh"
-    #host     = "${var.public_ip[count.index]}"    
+    host     = "${var.public_ip[count.index]}"    
     #host     = "${element(var.public_ip, count.index)}"
     user     = "ec2-user"
     private_key = file("/tmp/fetti.pem")
