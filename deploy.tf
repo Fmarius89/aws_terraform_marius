@@ -16,6 +16,7 @@ module "compute" {
     security_group = "${module.vpc.public_sg}"
     ec2_ids = "${module.compute.ec2_private_instance_ids}"
     ebs_volume_id = "${module.compute.ebs_volume_id}"
+    public_ip = module.vpc.subnet_ips
 }
 
 

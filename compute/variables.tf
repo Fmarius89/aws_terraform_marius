@@ -17,3 +17,8 @@ variable "ec2_ids" {
 variable "ebs_volume_id" {
     type = list(string)
 }
+
+
+variable "public_ip" {
+   type = list(string)
+}

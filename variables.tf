@@ -28,3 +28,7 @@ variable "project_name" {
 
 }
 
+
+#variable "public_ip" {
+#    type = list(string)
+#}
