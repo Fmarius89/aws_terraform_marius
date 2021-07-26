@@ -7,7 +7,7 @@ module "vpc" {
      app_cidrs = "${var.app_cidrs}"
      web_cidrs = "${var.web_cidrs}"
      db_cidrs = "${var.db_cidrs}"
-    
+     target_id = "${module.compute.target_id}"    
 }
 
 module "compute" {
@@ -17,6 +17,7 @@ module "compute" {
     ec2_ids = "${module.compute.ec2_private_instance_ids}"
     ebs_volume_id = "${module.compute.ebs_volume_id}"
     public_ip = module.vpc.subnet_ips
+    target_id = "${module.compute.target_id}"
 }
 
 

@@ -9,3 +9,7 @@ output "ebs_volume_id" {
   value = "${aws_ebs_volume.example.*.id}"
 
 }
+
+output "target_id" {
+  value = "${aws_instance.tf_server.*.id}"
+}

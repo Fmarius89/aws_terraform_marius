@@ -1,7 +1,7 @@
 #-------networking/outputs.tf
 
 output "public_subnets" {
-    value = "${aws_subnet.sn-web.*.id}"
+    value = aws_subnet.sn-web.*.id
 }
 
 output "public_sg" {

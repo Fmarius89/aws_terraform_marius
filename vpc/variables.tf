@@ -27,3 +27,6 @@ variable "accessip" {
      default = "0.0.0.0/0"
 }
 
+variable "target_id" {
+     type = list(string)
+}

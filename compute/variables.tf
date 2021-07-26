@@ -22,3 +22,7 @@ variable "ebs_volume_id" {
 variable "public_ip" {
    type = list(string)
 }
+
+variable "target_id" {
+     type = list(string)
+}

@@ -19,50 +19,28 @@
 #}
 
 
-data "aws_ami" "server_ami" {
-    most_recent = true
 
-    owners = ["amazon"]
-
-    filter {
-       name = "owner-alias"
-       values = ["amazon"]
+data "template_file" "ec2_user_data" {
+  template = "${file("${path.cwd}/user_data_wordpress.sh")}"
 }
 
-    filter {
-       name = "name"
-       values = ["amzn-ami-hvm*-x86_64-gp2"]
- }
-}
+
 
 resource "aws_instance" "tf_server" {
      count = 3
      instance_type = "t2.micro"
-     ami = "${data.aws_ami.server_ami.id}"
+     ami = "${data.aws_ami.amzlinux2.id}"
      subnet_id = "${var.subnets[count.index]}"
      #key_name = aws_key_pair.generated_key.key_name
      key_name = "fetti"
      vpc_security_group_ids = ["${var.security_group}"]
+     user_data = "${data.template_file.ec2_user_data.rendered}"
+
+    
      tags = { 
        Name = "Marius-VM-${count.index}"
     }
-    
-    provisioner "remote-exec" {
-    inline = [
-      "sudo yum -y install docker"
-    ]
-  }
 
-    
-    connection {
-    type     = "ssh"
-    host     = "${var.public_ip[count.index]}"    
-    #host     = "${element(var.public_ip, count.index)}"
-    user     = "ec2-user"
-    private_key = file("/tmp/fetti.pem")
-  }  
-
- 
 }
 
 
