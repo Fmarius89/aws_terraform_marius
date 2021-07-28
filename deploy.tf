@@ -25,3 +25,8 @@ module "bucket" {
     source = "./bucket" 
     project_name = "${var.project_name}"
 }
+
+module "db" {
+   source = "./db"
+   subnets = "${module.vpc.public_subnets}"
+}
