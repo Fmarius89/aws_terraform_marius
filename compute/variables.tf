@@ -26,3 +26,8 @@ variable "public_ip" {
 variable "target_id" {
      type = list(string)
 }
+
+variable "iam_ssm" {}
+
+
+

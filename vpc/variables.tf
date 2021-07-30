@@ -16,6 +16,7 @@ variable "web_cidrs" {
 }
 
 variable "db_cidrs" {
+     type = list(string)
      default = [
          "10.16.16.0/20",
          "10.16.80.0/20",
@@ -30,3 +31,8 @@ variable "accessip" {
 variable "target_id" {
      type = list(string)
 }
+
+variable "vpc_id"{}
+
+
+variable "public_sg" {}

@@ -1,3 +1,7 @@
-variable "subnets" {
-    type = list(string)
+variable "db_subnets" {
+  type = list(string)
   }
+
+
+
+variable "vpc_id" {}
