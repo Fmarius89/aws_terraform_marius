@@ -5,3 +5,6 @@ variable "db_subnets" {
 
 
 variable "vpc_id" {}
+
+variable "rds_sg" {}
+

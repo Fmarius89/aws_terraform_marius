@@ -33,6 +33,7 @@ module "db" {
    source = "./db"
    db_subnets = "${module.vpc.db_subnets}"
    vpc_id = "${module.vpc.vpc_id}"
+   rds_sg = "${module.security.rds_sg}"
 }
 
 module "iam" {
@@ -43,7 +44,8 @@ module "iam" {
 module "security" {
     source = "./security"
     vpc_id = "${module.vpc.vpc_id}"
-     public_sg = "${module.security.public_sg}"
+    public_sg = "${module.security.public_sg}"
+    rds_sg = "${module.security.rds_sg}"
 }
 
 

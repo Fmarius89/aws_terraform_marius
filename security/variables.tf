@@ -5,3 +5,5 @@ variable "public_sg" {}
 variable "accessip" {
      default = "0.0.0.0/0"
 }
+
+variable "rds_sg" {}
