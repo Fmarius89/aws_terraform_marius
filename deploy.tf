@@ -21,6 +21,7 @@ module "compute" {
     public_ip = module.vpc.subnet_ips
     target_id = "${module.compute.target_id}"
     iam_ssm = "${module.iam.iam_ssm}"
+    depends_on = [module.db]
 }
 
 

@@ -31,11 +31,9 @@ resource "aws_instance" "tf_server" {
      instance_type = "t2.micro"
      ami = "${data.aws_ami.amzlinux2.id}"
      subnet_id = "${var.subnets[count.index]}"
-     #key_name = aws_key_pair.generated_key.key_name
      key_name = "fetti"
      vpc_security_group_ids = ["${var.security_group}"]
      user_data = "${data.template_file.ec2_user_data.rendered}"
-     #iam_instance_profile = "${aws_iam_instance_profile.test_profile.name}"
      iam_instance_profile = "${var.iam_ssm}"
 
     
