@@ -1,8 +1,12 @@
 #!/bin/bash -xe
 
 # Setpassword & DB Variables
-DBName='a4lwordpress'
-DBUser='a4lwordpress'
+DBPassword=$(aws ssm get-parameters --region us-east-1 --names /A4L/Wordpress/DBPassword --with-decryption --query Parameters[0].Value)
+DBPassword=`echo $DBPassword | sed -e 's/^"//' -e 's/"$//'`
+DBUser=$(aws ssm get-parameters --region us-east-1 --names /A4L/Wordpress/DBUser --query Parameters[0].Value)
+DBUser=`echo $DBUser | sed -e 's/^"//' -e 's/"$//'`
+DBName=$(aws ssm get-parameters --region us-east-1 --names /A4L/Wordpress/DBName --query Parameters[0].Value)
+DBName=`echo $DBName | sed -e 's/^"//' -e 's/"$//'`
 
 # System Updates
 yum -y update
@@ -24,17 +28,22 @@ tar -zxvf latest.tar.gz
 cp -rvf wordpress/* .
 rm -R wordpress
 rm latest.tar.gz
+
 # STEP 6 - Configure Wordpress
 cp ./wp-config-sample.php ./wp-config.php
 sed -i "s/'database_name_here'/'$DBName'/g" wp-config.php
 sed -i "s/'username_here'/'$DBUser'/g" wp-config.php
 sed -i "s/'password_here'/'$DBPassword'/g" wp-config.php
+DBHost=`aws rds describe-db-instances --region us-east-1 | grep -i address | awk '{print $2}' | tr -d ',' | tr -d '"'`
+grep -i DB_HOST /var/www/html/wp-config.php | sed -i "s/'localhost'/'$DBHost'/g" wp-config.php
+
 # Step 6a - permissions 
 usermod -a -G apache ec2-user   
 chown -R ec2-user:apache /var/www
 chmod 2775 /var/www
 find /var/www -type d -exec chmod 2775 {} \;
 find /var/www -type f -exec chmod 0664 {} \;
+
 # STEP 7 Create Wordpress DB
 echo "CREATE DATABASE $DBName;" >> /tmp/db.setup
 echo "CREATE USER '$DBUser'@'localhost' IDENTIFIED BY '$DBPassword';" >> /tmp/db.setup
