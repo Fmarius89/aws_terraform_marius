@@ -29,5 +29,7 @@ variable "target_id" {
 
 variable "iam_ssm" {}
 
-
+variable "ami_id" {
+    type = string
+}
 

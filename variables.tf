@@ -28,3 +28,6 @@ variable "project_name" {
 
 }
 
+variable "ami_id" {
+   type = string
+}
