@@ -32,4 +32,4 @@ jobs:
       - name: Terraform plan
         id: plan
         run: terraform plan
-        if: 'plan' = 'plan'
+        if: plan = 'plan'
