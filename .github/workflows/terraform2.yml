@@ -37,12 +37,12 @@ jobs:
         id: plan
         run: terraform plan
 
-      - name: Terraform plan
-        id: plan
+      - name: Terraform apply
+        id: apply
         run: terraform apply -auto-approve
         if:  github.event.inputs.plan == 'apply'
 
       - name: Terraform plan
-        id: plan
+        id: destroy
         run: terraform destroy -auto-approve
         if:  github.event.inputs.plan == 'destroy'
