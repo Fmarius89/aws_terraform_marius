@@ -40,9 +40,9 @@ jobs:
       - name: Terraform apply
         id: apply
         run: terraform apply -auto-approve
-        if:  github.event.inputs.plan == 'apply'
+        if:  github.event.inputs.apply == 'apply'
 
       - name: Terraform plan
         id: destroy
         run: terraform destroy -auto-approve
-        if:  github.event.inputs.plan == 'destroy'
+        if:  github.event.inputs.destroy == 'destroy'
