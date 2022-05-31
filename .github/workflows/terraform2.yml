@@ -49,5 +49,5 @@ jobs:
         if:  github.event.inputs.destroy == 'destroy'
 
       - name: Get latest AMI ID
-        id: destroy
+        id: ami
         run: "aws ec2 describe-images --region us-east-1 --owners self --output json | jq '.Images[] | {ImageId}' | jq --raw-output '.ImageId'  | tail -n 1"
