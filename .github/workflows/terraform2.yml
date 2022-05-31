@@ -1,9 +1,12 @@
 name: 'Terraform'
 
 on:
-  push:
-    branches:
-    - main
+ workflow_dispatch:
+  inputs:
+    plan:
+      description: 'Terraform plan'
+      required: true
+      default: 'plan'
 
 
 jobs:
@@ -29,3 +32,4 @@ jobs:
       - name: Terraform plan
         id: plan
         run: terraform plan
+        if: plan = 'plan'
