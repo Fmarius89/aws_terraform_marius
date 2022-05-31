@@ -32,7 +32,6 @@ jobs:
       - name: Terraform init
         id: init
         run: terraform init
-        if:  github.event.inputs.apply == 'apply'
 
       - name: Terraform plan
         id: plan
