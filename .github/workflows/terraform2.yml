@@ -32,4 +32,4 @@ jobs:
       - name: Terraform plan
         id: plan
         run: terraform plan
-        if:  github.event.inputs.plan = 'plan'
+        if:  github.event.inputs.plan == 'plan'
