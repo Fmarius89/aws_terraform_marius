@@ -29,8 +29,8 @@ data "template_file" "ec2_user_data" {
 resource "aws_instance" "tf_server" {
      count = 3
      instance_type = "t2.micro"
-     ami = "${data.aws_ami.amzlinux2.id}"
-     #ami = "${var.ami_id}"
+     #ami = "${data.aws_ami.amzlinux2.id}"
+     ami = "${var.ami_id}"
      subnet_id = "${var.subnets[count.index]}"
      key_name = "fetti"
      vpc_security_group_ids = ["${var.security_group}"]

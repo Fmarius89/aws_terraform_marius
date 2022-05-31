@@ -40,14 +40,10 @@ jobs:
 
       - name: Terraform apply
         id: apply
-        run: terraform apply -auto-approve
+        run: terraform apply -auto-approve -var ami_id=`aws ec2 describe-images --region us-east-1 --owners self --output json | jq '.Images[] | {ImageId}' | jq --raw-output '.ImageId'  | tail -n 1`
         if:  github.event.inputs.apply == 'apply'
 
       - name: Terraform destroy
         id: destroy
         run: terraform destroy -auto-approve
         if:  github.event.inputs.destroy == 'destroy'
-
-      - name: Get latest AMI ID
-        id: ami
-        run: "aws ec2 describe-images --region us-east-1 --owners self --output json | jq '.Images[] | {ImageId}' | jq --raw-output '.ImageId'  | tail -n 1"
