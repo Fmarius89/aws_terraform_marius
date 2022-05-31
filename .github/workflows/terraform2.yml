@@ -32,17 +32,19 @@ jobs:
       - name: Terraform init
         id: init
         run: terraform init
+        if:  github.event.inputs.apply == 'apply'
 
       - name: Terraform plan
         id: plan
         run: terraform plan
+        if:  github.event.inputs.apply == 'apply'
 
       - name: Terraform apply
         id: apply
         run: terraform apply -auto-approve
         if:  github.event.inputs.apply == 'apply'
 
-      - name: Terraform plan
+      - name: Terraform destroy
         id: destroy
         run: terraform destroy -auto-approve
         if:  github.event.inputs.destroy == 'destroy'
